@@ -11,7 +11,7 @@ const app = express();
 //middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(express.static('public'));
+app.use(express.static('./Develop/public'));
 
 //routes
 app.get('/api/notes', (req, res) => {
@@ -21,7 +21,7 @@ app.get('/api/notes', (req, res) => {
 app.post('/api/notes', (req, res) => {
     const notes = JSON.parse(fs.readFileSync("./Develop/db/db.json"));
     const newNotes = req.body;
-    newNotes.id = uuid.v4();
+    newNotes.id = uuidv4();
     notes.push(newNotes);
     fs.writeFileSync(path.join(__dirname, './Develop/db/db.json'), JSON.stringify(notes));
     res.json(notes);
